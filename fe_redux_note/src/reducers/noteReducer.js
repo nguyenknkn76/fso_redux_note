@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, current } from "@reduxjs/toolkit"
 
 const initialState = [
   {
@@ -32,6 +32,7 @@ const noteSlice = createSlice({
       const id = action.payload
       const noteToChange = state.find(n => n.id === id)
       const changedNote = {...noteToChange, important: !noteToChange.important}
+      // console.log("STATE",current(state)) 
       return state.map(note => note.id !== id ? note : changedNote)
     },
 

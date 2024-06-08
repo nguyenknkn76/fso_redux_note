@@ -22,7 +22,7 @@ const store = configureStore({
 
 console.log(store.getState())
 store.subscribe(() => console.log(store.getState()))
-store.dispatch(creatorFilterChange("IMPORTANT"))
+// store.dispatch(creatorFilterChange("IMPORTANT"))
 store.dispatch(createNote("this is third note"))
 
 ReactDOM.createRoot(document.getElementById('root')).render(
