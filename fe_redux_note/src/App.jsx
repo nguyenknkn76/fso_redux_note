@@ -1,16 +1,14 @@
 import NewNoteComp from './components/NewNoteComp'
 import ListNoteComp from './components/ListNoteComp'
 import VisibilityFilter from './components/VisibilityFilter'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import NoteService from './services/NoteService'
+import { setNotes } from './reducers/noteReducer'
 
 const App = () => {
-  // const notes = useSelector(state => state)
+  const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   console.log(notes)
-  // },[notes])
-  const filterSelected = (value) => {
-    console.log(value)
-  }
   return (
     <div> 
       <VisibilityFilter/>

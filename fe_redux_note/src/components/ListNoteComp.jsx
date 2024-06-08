@@ -1,9 +1,22 @@
 import { useDispatch, useSelector } from "react-redux"
-import { toggleImportanceOf } from "../reducers/noteReducer"
+import { delNote, toggleImportanceOf } from "../reducers/noteReducer"
 import { useEffect } from "react"
-
+import NoteService from "../services/NoteService"
+import { setNotes, initialNotes } from "../reducers/noteReducer"
 const ListNoteComp = () => {
     const dispatch = useDispatch()
+
+    const fetchNote = async () => {
+        dispatch(initialNotes())
+        // await NoteService
+        //     .getAll()
+        //     .then(notes => dispatch(setNotes(notes)))
+    }
+
+    useEffect( () => {
+        fetchNote()
+    }, [])
+
     const notes = useSelector(state => {
         if(state.filter === "ALL"){
             return state.notes
@@ -12,11 +25,13 @@ const ListNoteComp = () => {
             ? state.notes.filter(note => note.important)
             : state.notes.filter(note => !note.important)
     })
-    // const importantNotes = useSelector(state => state)
-    const importantNotes = useSelector(state => (state.notes) ? state.notes.filter(note => note.important) : []) 
     
-    const toggleImportance = (id) => {
+    function toggleImportance(id) {
         dispatch(toggleImportanceOf(id))
+    }
+
+    const deleteNote = (id) =>{
+        dispatch(delNote(id))
     }
 
     useEffect(()=> {
@@ -31,7 +46,9 @@ const ListNoteComp = () => {
                         key={note.id} 
                         onClick={()=> toggleImportance(note.id)}
                     >
-                        {note.content} <strong>{note.important === true ? "important" : ""}</strong>
+                        {note.content} 
+                        <strong>{note.important === true ? "important" : ""}</strong>
+                        <button onClick={() => deleteNote(note.id)}>delete</button>
                     </li>
                 )}
             </ul>
