@@ -4,9 +4,16 @@ import { useEffect } from "react"
 
 const ListNoteComp = () => {
     const dispatch = useDispatch()
-    const notes = useSelector(state => state)
+    const notes = useSelector(state => {
+        if(state.filter === "ALL"){
+            return state.notes
+        }
+        return state.filter === "IMPORTANT" 
+            ? state.notes.filter(note => note.important)
+            : state.notes.filter(note => !note.important)
+    })
     // const importantNotes = useSelector(state => state)
-    const importantNotes = useSelector(state => (state) ? state.filter(note => note.important) : []) 
+    const importantNotes = useSelector(state => (state.notes) ? state.notes.filter(note => note.important) : []) 
     
     const toggleImportance = (id) => {
         dispatch(toggleImportanceOf(id))
@@ -24,12 +31,12 @@ const ListNoteComp = () => {
                         key={note.id} 
                         onClick={()=> toggleImportance(note.id)}
                     >
-                        {note.content} <strong>{note.important ? "important" : ""}</strong>
+                        {note.content} <strong>{note.important === true ? "important" : ""}</strong>
                     </li>
                 )}
             </ul>
 
-            <p>important note</p>
+            {/* <p>important note</p>
             <ul>
                 {importantNotes?.map(note => 
                     <li 
@@ -39,7 +46,7 @@ const ListNoteComp = () => {
                         {note.content} <strong>{note.important}</strong>
                     </li>
                 )}
-            </ul>
+            </ul> */}
         </div>
     )
 }

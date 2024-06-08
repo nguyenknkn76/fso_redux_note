@@ -12,11 +12,11 @@ const initialState = [
 ]
 
 const noteReducer = (state = initialState, action) => {
-    // ...
+    console.log("ACTION", action)
     switch(action.type){
         case "NEW_NOTE": return state.concat(action.payload)
         case "TOGGLE_IMPORTANCE": return state.map(note => note.id !== action.payload.id ? note : {...note, important: !note.important})
-        default: state
+        default: return state
     }
   }
   

@@ -3,6 +3,7 @@ import { createNote, toggleImportanceOf } from './reducers/noteReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import NewNoteComp from './components/NewNoteComp'
 import ListNoteComp from './components/ListNoteComp'
+import VisibilityFilter from './components/VisibilityFilter'
 
 const App = () => {
   // const notes = useSelector(state => state)
@@ -15,11 +16,7 @@ const App = () => {
   }
   return (
     <div> 
-      <div>
-        all: <input name='filter' type='radio' onChange={()=> filterSelected('ALL')}/>
-        important <input name='filter' type='radio' onChange={()=> filterSelected('IMPORTANT')}/>
-        nonimportant <input name='filter' type='radio' onChange={()=> filterSelected('NONIMPORTANT')}/>
-      </div>
+      <VisibilityFilter/>
       <NewNoteComp/>
       <ListNoteComp/>
     </div>
